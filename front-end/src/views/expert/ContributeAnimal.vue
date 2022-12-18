@@ -122,6 +122,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters("animal", ["getAnimalsById", "getMessage"]),
     ...mapGetters("auth", ["getProfile"])
   },
   methods: {
@@ -139,6 +140,9 @@ export default {
           }
         );
     }
+  },
+  created() {
+    this.animal = this.getAnimalsById(this.$route.params.animalId);
   }
 };
 </script>
