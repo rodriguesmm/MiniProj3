@@ -133,7 +133,7 @@ export default {
         .then(
           () => {
             this.$alert(this.getMessage, "Contribuição submetida!", "success");
-            router.push({ name: "listAnimals" });
+            router.push({ name: "expert" });
           },
           err => {
             this.$alert(`${err.message}`, "Erro", "error");

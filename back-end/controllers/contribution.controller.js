@@ -20,6 +20,6 @@ exports.create = (req, res) => {
         if (error) throw error;
         let message = AnimalMessages.success.s0;
         message.body = animal;
-        return res.header("location", "/animals/" + animal._id).status(message.http).send(message);
+        return res.header("location", "/expert/animals/" + animal._id).status(message.http).send(message);
     });
 }
