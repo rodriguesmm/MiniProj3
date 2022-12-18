@@ -6,7 +6,7 @@
       <b-row>
         <b-col cols="2"></b-col>
         <b-col cols="8">
-          <form @submit.prevent="update">
+          <form @submit.prevent="contribute">
             <div class="form-group">
               <input
                 v-model="animal.name"
@@ -106,7 +106,9 @@
 </template>
 
 <script>
+import { CONTRIBUTE_ANIMAL } from "@/store/animals/animal.constants";
 import HeaderPage from "@/components/HeaderPage.vue";
+import router from "@/router";
 import { mapGetters } from "vuex";
 
 export default {
@@ -120,10 +122,23 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("animal", ["getAnimalsById", "getMessage"])
+    ...mapGetters("auth", ["getProfile"])
   },
-  created() {
-    this.animal = this.getAnimalsById(this.$route.params.animalId);
+  methods: {
+    contribute() {
+      this.$data.animal["expert"] = this.getProfile._id;
+      this.$store
+        .dispatch(`animal/${CONTRIBUTE_ANIMAL}`, this.$data.animal)
+        .then(
+          () => {
+            this.$alert(this.getMessage, "Contribuição submetida!", "success");
+            router.push({ name: "listAnimals" });
+          },
+          err => {
+            this.$alert(`${err.message}`, "Erro", "error");
+          }
+        );
+    }
   }
 };
 </script>

@@ -61,6 +61,22 @@ export const animalService = {
     } else {
       throw Error(handleResponses(response.status));
     }
+  },
+
+  async contributeAnimal(token, payload) {
+    const response = await fetch(`${API_URL}/contribution/${payload._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token
+      },
+      body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+      return await response.json();
+    } else {
+      throw Error(handleResponses(response.status));
+    }
   }
 };
 

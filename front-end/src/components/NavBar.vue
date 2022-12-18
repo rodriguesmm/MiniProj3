@@ -39,18 +39,18 @@
                 />
               </b-nav-item>
             </div>
-            <div v-else>
+            <div v-else-if="getUserType === 'admin'">
               <b-nav-item :to="{ name: 'admin' }">ADMIN</b-nav-item>
+            </div>
+            <div v-else-if="getUserType === 'expert'">
+              <b-nav-item :to="{ name: 'expert' }">EXPERT</b-nav-item>
+            </div>
+            <div v-else-if="getUserType === 'sponsor'">
+              <b-nav-item :to="{ name: 'sponsor' }">SPONSOR</b-nav-item>
             </div>
           </div>
           <div v-else>
             <b-nav-item :to="{ name: 'login' }">LOGIN</b-nav-item>
-          </div>
-          <div v-if="isUserLoggedIn && getUserType !== 'user'">
-            <b-nav-item :to="{ name: 'expert' }">EXPERT</b-nav-item>
-          </div>
-          <div v-if="isUserLoggedIn && getUserType !== 'user'">
-            <b-nav-item :to="{ name: 'sponsor' }">SPONSOR</b-nav-item>
           </div>
         </b-navbar-nav>
       </b-collapse>

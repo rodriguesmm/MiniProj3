@@ -5,6 +5,7 @@ import {
   ADD_ANIMAL,
   EDIT_ANIMAL,
   REMOVE_ANIMAL,
+  CONTRIBUTE_ANIMAL,
   // Mutations
   SET_ANIMALS,
   SET_MESSAGE,
@@ -80,6 +81,23 @@ const actions = {
         },
         err => {
           commit(SET_MESSAGE, err.message);
+          reject(err);
+        }
+      );
+    });
+  },
+  [CONTRIBUTE_ANIMAL]: ({ commit, rootState }, payload) => {
+    return new Promise((resolve, reject) => {
+      animalService.contributeAnimal(rootState.auth.token, payload).then(
+        res => {
+          commit(
+            SET_MESSAGE,
+            `A contribuição para o animal ${res.body.name} foi adicionada com sucesso!`
+          );
+          resolve(res);
+        },
+        err => {
+          commit(SET_MESSAGE, err);
           reject(err);
         }
       );
